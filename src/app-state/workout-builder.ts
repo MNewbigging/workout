@@ -8,6 +8,8 @@ export function buildWorkout() {
 
   const workout: Exercise[] = [catCow, deadBug, gluteBridge];
 
+  return workout;
+
   // Leaves 12 slots to fill; 4 each of upper, core and lower
   const uppers = getExercisesByTarget(ExerciseTarget.Upper);
   const cores = getExercisesByTarget(ExerciseTarget.Core);

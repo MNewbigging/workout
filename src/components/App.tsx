@@ -4,14 +4,18 @@ import "./app.scss";
 import { useUpdater } from "./hooks/use-updater";
 import { LandingScreen } from "./landing-screen/landing-screen";
 import { WorkoutScreen } from "./workout-screen/workout-screen";
+import { WorkoutStatus } from "../app-state/workout-manager";
+import { FinishedScreen } from "./finished-screen/finished-screen";
 
 export function App() {
-  useUpdater("started-workout");
+  useUpdater("started-workout", "finished-workout", "return-to-landing-page");
 
   let screen: ReactElement | null = null;
 
   if (!appState.workoutManager) {
     screen = <LandingScreen />;
+  } else if (appState.workoutManager.status === WorkoutStatus.Finished) {
+    screen = <FinishedScreen />;
   } else {
     screen = <WorkoutScreen workoutManager={appState.workoutManager} />;
   }

@@ -1,4 +1,8 @@
-export type WorkoutEvent = "started-workout" | "second-passed";
+export type WorkoutEvent =
+  | "started-workout"
+  | "second-passed"
+  | "finished-workout"
+  | "return-to-landing-page";
 
 type EventCallback = () => void;
 

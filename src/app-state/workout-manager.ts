@@ -17,9 +17,9 @@ export class WorkoutManager {
   restTimer: number;
   status = WorkoutStatus.Intro;
 
-  private readonly introLength = 3; // seconds
-  private readonly exerciseLength = 3; //40; // seconds
-  private readonly restLength = 2; // 20; // seconds
+  private readonly introLength = 1; // seconds
+  private readonly exerciseLength = 1; // 40; // seconds
+  private readonly restLength = 1; // 20; // seconds
 
   private clockId = 0;
 
@@ -68,7 +68,7 @@ export class WorkoutManager {
   private handleIntroSecond() {
     this.introTimer--;
 
-    if (this.introTimer === 0) {
+    if (this.introTimer < 0) {
       this.setNextExercise();
       this.status = WorkoutStatus.Active;
     }
@@ -77,10 +77,12 @@ export class WorkoutManager {
   private handleActiveSecond() {
     this.exerciseTimer--;
 
-    if (this.exerciseTimer === 0) {
+    if (this.exerciseTimer < 0) {
       // Don't bother with rest stage when finishing the last workout
       if (!this.workout.length) {
         this.status = WorkoutStatus.Finished;
+        updater.fire("finished-workout");
+        clearInterval(this.clockId); // stop the clock
       } else {
         this.status = WorkoutStatus.Resting;
       }
@@ -90,7 +92,7 @@ export class WorkoutManager {
   private handleRestingSecond() {
     this.restTimer--;
 
-    if (this.restTimer === 0) {
+    if (this.restTimer < 0) {
       this.setNextExercise();
       this.status = WorkoutStatus.Active;
     }
@@ -107,5 +109,3 @@ export class WorkoutManager {
     this.restTimer = this.restLength;
   }
 }
-
-// ui update events: do I just need a second-passed event?
