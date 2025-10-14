@@ -1,5 +1,5 @@
 import { Exercise } from "./types";
-import { updater } from "./ui-updater";
+import { updater } from "./workout-updater";
 
 export enum WorkoutStatus {
   Intro,
@@ -15,12 +15,12 @@ export class WorkoutManager {
   nextExercise?: Exercise;
   exerciseTimer: number;
   restTimer: number;
+  status = WorkoutStatus.Intro;
 
   private readonly introLength = 3; // seconds
-  private readonly exerciseLength = 40; // seconds
-  private readonly restLength = 20; // seconds
+  private readonly exerciseLength = 3; //40; // seconds
+  private readonly restLength = 2; // 20; // seconds
 
-  private status = WorkoutStatus.Intro;
   private clockId = 0;
 
   constructor(private workout: Exercise[]) {
@@ -32,7 +32,7 @@ export class WorkoutManager {
   start() {
     // Prep first exercise to show during intro countdown
     this.nextExercise = this.workout[0];
-    updater.fire("start");
+    updater.fire("started-workout");
 
     this.clockId = setInterval(this.onSecondPassed, 1000);
   }

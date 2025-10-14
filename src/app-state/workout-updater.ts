@@ -1,4 +1,4 @@
-export type WorkoutEvent = "start" | "second-passed";
+export type WorkoutEvent = "started-workout" | "second-passed";
 
 type EventCallback = () => void;
 
