@@ -10,6 +10,18 @@ import { FinishedScreen } from "./finished-screen/finished-screen";
 export function App() {
   useUpdater("started-workout", "finished-workout", "return-to-landing-page");
 
+  function onTouch() {
+    const { workoutManager } = appState;
+
+    if (!workoutManager) return;
+
+    if (workoutManager.status === WorkoutStatus.Paused) {
+      workoutManager.resume();
+    } else {
+      workoutManager.pause();
+    }
+  }
+
   let screen: ReactElement | null = null;
 
   if (!appState.workoutManager) {
@@ -20,5 +32,9 @@ export function App() {
     screen = <WorkoutScreen workoutManager={appState.workoutManager} />;
   }
 
-  return <div className="ui-root">{screen}</div>;
+  return (
+    <div className="ui-root" onTouchStart={() => onTouch()}>
+      {screen}
+    </div>
+  );
 }

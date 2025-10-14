@@ -22,6 +22,7 @@ export class WorkoutManager {
   private readonly restLength = 1; // 20; // seconds
 
   private clockId = 0;
+  private prePauseStatus?: WorkoutStatus;
 
   constructor(private workout: Exercise[]) {
     this.introTimer = this.introLength;
@@ -38,14 +39,16 @@ export class WorkoutManager {
   }
 
   pause() {
+    if (this.status === WorkoutStatus.Finished) return;
+
     clearInterval(this.clockId);
+    this.prePauseStatus = this.status;
     this.status = WorkoutStatus.Paused;
-    // todo should I fire ui update event here??
   }
 
   resume() {
+    if (this.prePauseStatus !== undefined) this.status = this.prePauseStatus;
     this.clockId = setInterval(this.onSecondPassed, 1000);
-    // todo fire ui update event?
   }
 
   private onSecondPassed = () => {
