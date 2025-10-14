@@ -1,9 +1,13 @@
 import { buildWorkout } from "./workout-builder";
+import { WorkoutManager } from "./workout-manager";
 
 class AppState {
-  prepWorkout() {
+  workoutManager?: WorkoutManager;
+
+  startNewWorkout() {
     const workout = buildWorkout();
-    console.log("workout", workout);
+    this.workoutManager = new WorkoutManager(workout);
+    this.workoutManager.start();
   }
 }
 

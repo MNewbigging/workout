@@ -1,4 +1,5 @@
 import { Exercise } from "./types";
+import { updater } from "./ui-updater";
 
 export enum WorkoutStatus {
   Intro,
@@ -31,7 +32,7 @@ export class WorkoutManager {
   start() {
     // Prep first exercise to show during intro countdown
     this.nextExercise = this.workout[0];
-    // todo fire ui update event
+    updater.fire("start");
 
     this.clockId = setInterval(this.onSecondPassed, 1000);
   }
@@ -60,7 +61,8 @@ export class WorkoutManager {
         break;
     }
 
-    // Fire a single ui update event every second after all logic has taken place?
+    // Fire a single ui update event every second after all logic has taken place
+    updater.fire("second-passed");
   };
 
   private handleIntroSecond() {
