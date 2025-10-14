@@ -5,9 +5,9 @@ export enum ExerciseCategory {
 }
 
 export enum ExerciseTarget {
-  Upper,
-  Core,
-  Lower,
+  Upper = "Upper",
+  Core = "Core",
+  Lower = "Lower",
 }
 
 export interface Exercise {
