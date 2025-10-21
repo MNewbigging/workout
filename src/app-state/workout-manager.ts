@@ -1,3 +1,4 @@
+import { Clock } from "./clock";
 import { Exercise } from "./types";
 import { updater } from "./workout-updater";
 
@@ -21,8 +22,10 @@ export class WorkoutManager {
   private readonly exerciseLength = 40; // seconds
   private readonly restLength = 20; // seconds
 
-  private clockId = 0;
+  private clock = new Clock();
+
   private prePauseStatus?: WorkoutStatus;
+  private updateId = 0;
 
   constructor(private workout: Exercise[]) {
     this.introTimer = this.introLength;
@@ -35,21 +38,31 @@ export class WorkoutManager {
     this.nextExercise = this.workout[0];
     updater.fire("started-workout");
 
-    this.clockId = setInterval(this.onSecondPassed, 1000);
+    this.clock.start();
+    this.update();
   }
 
   pause() {
     if (this.status === WorkoutStatus.Finished) return;
 
-    clearInterval(this.clockId);
+    this.clock.stop();
+    cancelAnimationFrame(this.updateId);
     this.prePauseStatus = this.status;
     this.status = WorkoutStatus.Paused;
   }
 
   resume() {
     if (this.prePauseStatus !== undefined) this.status = this.prePauseStatus;
-    this.clockId = setInterval(this.onSecondPassed, 1000);
+    this.clock.start();
+    this.update();
   }
+
+  update = () => {
+    this.updateId = requestAnimationFrame(this.update);
+
+    const deltaTime = this.clock.getDeltaTime();
+    console.log("dt", deltaTime);
+  };
 
   private onSecondPassed = () => {
     switch (this.status) {
@@ -85,7 +98,6 @@ export class WorkoutManager {
       if (!this.workout.length) {
         this.status = WorkoutStatus.Finished;
         updater.fire("finished-workout");
-        clearInterval(this.clockId); // stop the clock
       } else {
         this.status = WorkoutStatus.Resting;
       }
