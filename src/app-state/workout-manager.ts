@@ -18,8 +18,8 @@ export class WorkoutManager {
   status = WorkoutStatus.Intro;
 
   private readonly introLength = 1; // seconds
-  private readonly exerciseLength = 1; // 40; // seconds
-  private readonly restLength = 1; // 20; // seconds
+  private readonly exerciseLength = 40; // seconds
+  private readonly restLength = 20; // seconds
 
   private clockId = 0;
   private prePauseStatus?: WorkoutStatus;
