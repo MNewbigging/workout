@@ -10,14 +10,8 @@ interface WorkoutScreenProps {
 export function WorkoutScreen({ workoutManager }: WorkoutScreenProps) {
   useUpdater("second-passed");
 
-  const {
-    status,
-    currentExercise,
-    nextExercise,
-    introTimer,
-    exerciseTimer,
-    restTimer,
-  } = workoutManager;
+  const { status, currentExercise, currentTimer, nextExercise } =
+    workoutManager;
 
   const showUpcoming =
     status === WorkoutStatus.Intro || status === WorkoutStatus.Resting;
@@ -26,16 +20,13 @@ export function WorkoutScreen({ workoutManager }: WorkoutScreenProps) {
 
   const showExercise = showUpcoming ? nextExercise : currentExercise;
 
-  let showTimer = exerciseTimer;
-  if (status === WorkoutStatus.Intro) showTimer = introTimer;
-  else if (status === WorkoutStatus.Resting) showTimer = restTimer;
+  const timeValue = currentTimer?.seconds;
 
   return (
     <div className="workout-screen">
-      <RingTimer />
       <div className="now-or-next">{nowOrNextText}:</div>
       <div className="exercise-name">{showExercise?.name}</div>
-      <div className="timer">{showTimer}</div>
+      <div className="timer">{timeValue}</div>
     </div>
   );
 }

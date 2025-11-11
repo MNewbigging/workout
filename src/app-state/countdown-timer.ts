@@ -5,6 +5,10 @@ export class CountdownTimer {
     this.time = startTime;
   }
 
+  get seconds() {
+    return Math.ceil(this.time);
+  }
+
   reset() {
     this.time = this.startTime;
   }

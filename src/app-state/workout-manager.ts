@@ -24,10 +24,10 @@ export class WorkoutManager {
   private readonly restLength = 20; // seconds
 
   private clock = new Clock();
-  private lastUpdateSeconds = 0;
 
   private prePauseStatus?: WorkoutStatus;
   private updateId = 0;
+  private secondLoopId = 0;
 
   constructor(private workout: Exercise[]) {}
 
@@ -39,6 +39,7 @@ export class WorkoutManager {
     this.nextExercise = this.workout[0];
     updater.fire("started-workout");
 
+    this.secondLoopId = setInterval(this.secondLoop, 1000);
     this.clock.start();
     this.update();
   }
@@ -50,10 +51,12 @@ export class WorkoutManager {
     cancelAnimationFrame(this.updateId);
     this.prePauseStatus = this.status;
     this.status = WorkoutStatus.Paused;
+    clearInterval(this.secondLoopId);
   }
 
   resume() {
     if (this.prePauseStatus !== undefined) this.status = this.prePauseStatus;
+    this.secondLoopId = setInterval(this.secondLoop, 1000);
     this.clock.start();
     this.update();
   }
@@ -63,17 +66,18 @@ export class WorkoutManager {
 
     const dt = this.clock.getDeltaTime();
 
-    this.currentTimer?.update(dt);
+    if (!this.currentTimer) return;
 
-    if (this.currentTimer?.isFinished()) {
+    this.currentTimer.update(dt);
+
+    if (this.currentTimer.isFinished()) {
       this.onTimerEnd();
     }
+  };
 
-    // Update UI every second
-    if (this.lastUpdateSeconds < this.clock.elapsedSeconds) {
-      this.lastUpdateSeconds = this.clock.elapsedSeconds;
-      updater.fire("second-passed");
-    }
+  private secondLoop = () => {
+    // Fires every second, separately from update loop
+    updater.fire("second-passed"); // updates ui timers each second
   };
 
   private onTimerEnd() {
