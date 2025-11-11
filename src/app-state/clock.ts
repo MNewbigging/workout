@@ -1,6 +1,11 @@
 export class Clock {
   private lastTime = 0;
   private running = true;
+  private elapsed = 0;
+
+  get elapsedSeconds() {
+    return Math.floor(this.elapsed);
+  }
 
   start() {
     this.lastTime = performance.now();
@@ -22,6 +27,8 @@ export class Clock {
     diff = (newTime - this.lastTime) / 1000;
 
     this.lastTime = newTime;
+
+    this.elapsed += diff;
 
     return diff;
   }
