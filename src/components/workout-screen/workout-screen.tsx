@@ -20,7 +20,7 @@ export function WorkoutScreen({ workoutManager }: WorkoutScreenProps) {
 
   const showExercise = showUpcoming ? nextExercise : currentExercise;
 
-  const timeValue = currentTimer?.seconds;
+  const timeValue = currentTimer?.secondsLeft;
 
   return (
     <div className="workout-screen">
