@@ -1,0 +1,30 @@
+@import "../common-styles.scss";
+
+.progress-bars {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-between;
+
+  .bar {
+    width: 20px;
+    height: 100%;
+
+    &.rest {
+      background-color: $lightBlue;
+    }
+
+    &.pause {
+      background-color: $red;
+    }
+
+    &.exercise {
+      background-color: $amber;
+    }
+  }
+}

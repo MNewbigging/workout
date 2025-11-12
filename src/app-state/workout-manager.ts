@@ -27,8 +27,8 @@ export class WorkoutManager {
   currentTimer?: SecondCountdownTimer;
 
   private readonly introLength = 3; // seconds
-  private readonly exerciseLength = 40; // seconds
-  private readonly restLength = 20; // seconds
+  private readonly exerciseLength = 4; // seconds
+  private readonly restLength = 2; // seconds
 
   private prePauseStatus?: WorkoutStatus;
 

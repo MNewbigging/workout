@@ -14,7 +14,12 @@ export class SecondCountdownTimer {
   }
 
   start() {
+    updater.fire("timer-started");
     this.intervalId = setInterval(this.tick, 1000); // calls tick every second
+  }
+
+  resume() {
+    //
   }
 
   stop() {

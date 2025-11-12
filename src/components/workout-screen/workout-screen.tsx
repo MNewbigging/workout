@@ -1,5 +1,6 @@
 import { WorkoutManager, WorkoutStatus } from "../../app-state/workout-manager";
 import { useUpdater } from "../hooks/use-updater";
+import { ProgressBars } from "../progress-bars/progress-bars";
 import { RingTimer } from "./ring-timer/ring-timer";
 import "./workout-screen.scss";
 
@@ -23,10 +24,13 @@ export function WorkoutScreen({ workoutManager }: WorkoutScreenProps) {
   const timeValue = currentTimer?.secondsLeft;
 
   return (
-    <div className="workout-screen">
-      <div className="now-or-next">{nowOrNextText}:</div>
-      <div className="exercise-name">{showExercise?.name}</div>
-      <div className="timer">{timeValue}</div>
-    </div>
+    <>
+      <ProgressBars workoutManager={workoutManager} />
+      <div className="workout-screen">
+        <div className="now-or-next">{nowOrNextText}:</div>
+        <div className="exercise-name">{showExercise?.name}</div>
+        <div className="timer">{timeValue}</div>
+      </div>
+    </>
   );
 }
