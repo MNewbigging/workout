@@ -1,15 +1,11 @@
 import { appState } from "../../app-state/app-state";
+import { Button } from "../button/button";
 import "./start-screen.scss";
 
 export function StartScreen() {
   return (
     <div className="start-screen">
-      <button
-        className="start-button"
-        onClick={() => appState.startNewWorkout()}
-      >
-        Start
-      </button>
+      <Button text="Start" onPress={() => appState.startNewWorkout()} />
     </div>
   );
 }
