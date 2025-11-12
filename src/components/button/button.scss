@@ -1,8 +1,8 @@
 @import "../common-styles.scss";
 
 .button {
-  width: 180px;
-  height: 60px;
+  width: 60%;
+  height: 11%;
 
   border-radius: 20px;
   border: 4px solid $offWhite;
@@ -21,7 +21,6 @@
     overflow: hidden;
     border-radius: 12px;
     border: 2px solid $offWhite;
-    // background-color: $dustyBlue;
 
     background: linear-gradient(
       0deg,
@@ -29,15 +28,18 @@
       $offWhite 75%,
       $offWhite 80%,
       $dustyBlue 80%,
-      $dustyBlue 85%,
-      $offWhite 85%,
-      $offWhite 94%,
-      $dustyBlue 95%
+      $dustyBlue 86%,
+      $offWhite 86%,
+      $offWhite 96%,
+      $dustyBlue 96%
     );
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    letter-spacing: 2px;
+    font-size: 7vw;
   }
 }
 
