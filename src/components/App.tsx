@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { appState } from "../app-state/app-state";
 import "./app.scss";
 import { useUpdater } from "./hooks/use-updater";
-import { LandingScreen } from "./landing-screen/landing-screen";
+import { StartScreen } from "./start-screen/start-screen";
 import { WorkoutScreen } from "./workout-screen/workout-screen";
 import { WorkoutStatus } from "../app-state/workout-manager";
 import { FinishedScreen } from "./finished-screen/finished-screen";
@@ -25,7 +25,7 @@ export function App() {
   let screen: ReactElement | null = null;
 
   if (!appState.workoutManager) {
-    screen = <LandingScreen />;
+    screen = <StartScreen />;
   } else if (appState.workoutManager.status === WorkoutStatus.Finished) {
     screen = <FinishedScreen />;
   } else {
