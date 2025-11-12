@@ -1,11 +1,12 @@
 import { appState } from "../../app-state/app-state";
+import { Button } from "../button/button";
 import "./finished-screen.scss";
 
 export function FinishedScreen() {
   return (
     <div className="finished-screen">
-      <div>Well done!</div>
-      <button onClick={() => appState.finishWorkout()}>Finish</button>
+      <div className="text">Well done!</div>
+      <Button text="Finish" onPress={() => appState.finishWorkout()} />
     </div>
   );
 }
