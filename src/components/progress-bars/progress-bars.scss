@@ -11,20 +11,50 @@
   display: flex;
   justify-content: space-between;
 
-  .bar {
-    width: 20px;
+  .bar-trough {
+    width: 7vw;
     height: 100%;
+    background-color: $grey;
 
-    &.rest {
-      background-color: $lightBlue;
-    }
+    .bar {
+      height: 100%;
+      animation-name: barDrop;
+      animation-fill-mode: forwards;
+      animation-timing-function: linear;
+      transform-origin: bottom;
 
-    &.pause {
-      background-color: $red;
-    }
+      &.intro {
+        background-color: $lightBlue;
+        animation-duration: 3s;
+        animation-play-state: running;
+      }
 
-    &.exercise {
-      background-color: $amber;
+      &.rest {
+        background-color: $lightBlue;
+        animation-duration: 2s;
+        animation-play-state: running;
+      }
+
+      &.pause {
+        background-color: $red;
+        animation-play-state: paused;
+      }
+
+      &.exercise {
+        background-color: $amber;
+        animation-duration: 4s;
+        animation-play-state: running;
+      }
     }
+  }
+}
+
+@keyframes barDrop {
+  0% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(0);
   }
 }

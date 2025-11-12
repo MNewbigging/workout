@@ -25,6 +25,8 @@ export function ProgressBars({ workoutManager }: ProgressBarsProps) {
   // What timer just started?
   switch (workoutManager.status) {
     case WorkoutStatus.Intro:
+      barClasses.push("intro");
+      break;
     case WorkoutStatus.Resting:
       barClasses.push("rest");
       break;
@@ -37,9 +39,13 @@ export function ProgressBars({ workoutManager }: ProgressBarsProps) {
   }
 
   return (
-    <div className="progress-bars">
-      <div className={barClasses.join(" ")}></div>
-      <div className={barClasses.join(" ")}></div>
+    <div key={workoutManager.status} className="progress-bars">
+      <div className={"bar-trough"}>
+        <div className={barClasses.join(" ")}></div>
+      </div>
+      <div className={"bar-trough"}>
+        <div className={barClasses.join(" ")}></div>
+      </div>
     </div>
   );
 }
