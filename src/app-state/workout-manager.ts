@@ -63,6 +63,7 @@ export class WorkoutManager {
   }
 
   private onTimerEnd = () => {
+    console.log("on timer end");
     switch (this.status) {
       case WorkoutStatus.Intro:
       case WorkoutStatus.Resting:
@@ -96,6 +97,7 @@ export class WorkoutManager {
         this.restLength,
         this.onTimerEnd
       );
+      this.currentTimer.start();
     }
   }
 

@@ -4,11 +4,21 @@
   width: 100%;
   height: 100%;
 
-  background-color: $dustyBlue;
+  background-color: $darkPurple;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
+  font-size: 10vw;
+
+  .now-or-next {
+    font-size: 8vw;
+  }
+
+  .timer {
+    letter-spacing: 4px;
+    font-size: 12vw;
+  }
 }
