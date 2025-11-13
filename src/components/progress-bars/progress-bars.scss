@@ -25,12 +25,12 @@
 
       &.intro {
         background-color: $lightBlue;
-        animation-duration: 3s;
+        animation-duration: 10s;
       }
 
       &.rest {
         background-color: $lightBlue;
-        animation-duration: 2s;
+        animation-duration: 20s;
       }
 
       &.pause {
@@ -39,7 +39,7 @@
 
       &.exercise {
         background-color: $amber;
-        animation-duration: 4s;
+        animation-duration: 40s;
       }
     }
   }

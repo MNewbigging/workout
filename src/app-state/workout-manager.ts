@@ -25,9 +25,10 @@ export class WorkoutManager {
 
   currentTimer?: SecondCountdownTimer;
 
-  private readonly introLength = 3; // seconds
-  private readonly exerciseLength = 4; // seconds
-  private readonly restLength = 2; // seconds
+  // If these are changed, must also update progress-bars.scss anim times
+  private readonly introLength = 10; // seconds
+  private readonly exerciseLength = 40; // seconds
+  private readonly restLength = 20; // seconds
 
   private wakeLock?: WakeLockSentinel;
 
@@ -75,7 +76,7 @@ export class WorkoutManager {
   }
 
   private requestFullscreen() {
-    document.body.requestFullscreen();
+    //document.body.requestFullscreen();
   }
 
   private exitFullscreen() {
