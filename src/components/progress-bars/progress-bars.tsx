@@ -38,11 +38,9 @@ export function ProgressBars({ workoutManager }: ProgressBarsProps) {
 
   // Or has the timer been (un)paused?
   const paused = workoutManager.currentTimer?.paused;
-  console.log("paused: ", paused);
   const animStyle: CSSProperties = {
     animationPlayState: paused ? "paused" : "running",
   };
-  console.log("animStyle: ", animStyle.animationPlayState);
 
   return (
     <div key={workoutManager.status} className="progress-bars">

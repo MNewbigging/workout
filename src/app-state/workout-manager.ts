@@ -29,9 +29,11 @@ export class WorkoutManager {
   private readonly exerciseLength = 4; // seconds
   private readonly restLength = 2; // seconds
 
+  private wakeLock?: WakeLockSentinel;
+
   constructor(private workout: Exercise[]) {}
 
-  start() {
+  async start() {
     // Setup timer for intro
     this.currentTimer = new SecondCountdownTimer(
       this.introLength,
@@ -42,22 +44,41 @@ export class WorkoutManager {
     this.nextExercise = this.workout[0];
     updater.fire("started-workout");
 
+    // Screen stuff
+    this.wakeLock = await this.getWakeLock();
+    this.toggleFullscreen();
+
     // Begin
     this.currentTimer.start();
   }
 
   pause() {
     if (this.status === WorkoutStatus.Finished) return;
-
     this.currentTimer?.pause();
+    this.wakeLock?.release();
+    this.toggleFullscreen();
   }
 
-  resume() {
+  async resume() {
+    this.wakeLock = await this.getWakeLock();
+    this.toggleFullscreen();
     this.currentTimer?.resume();
   }
 
+  private async getWakeLock(): Promise<WakeLockSentinel> {
+    const wakeLock = await navigator.wakeLock.request("screen");
+    return wakeLock;
+  }
+
+  private toggleFullscreen() {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.body.requestFullscreen();
+    }
+  }
+
   private onTimerEnd = () => {
-    console.log("on timer end");
     switch (this.status) {
       case WorkoutStatus.Intro:
       case WorkoutStatus.Resting:
