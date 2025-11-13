@@ -19,6 +19,8 @@ class AppState {
 
   finishWorkout() {
     this.workoutManager = undefined;
+    const audio = new Audio("/audio/confirmation_003.ogg");
+    audio.play();
     updater.fire("return-to-landing-page");
   }
 }

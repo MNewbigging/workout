@@ -27,8 +27,8 @@ export class WorkoutManager {
 
   // If these are changed, must also update progress-bars.scss anim times
   private readonly introLength = 10; // seconds
-  private readonly exerciseLength = 40; // seconds
-  private readonly restLength = 20; // seconds
+  private readonly exerciseLength = 4; // seconds
+  private readonly restLength = 2; // seconds
 
   private wakeLock?: WakeLockSentinel;
 
@@ -118,9 +118,7 @@ export class WorkoutManager {
   private finishExerciseTimer() {
     // Was this the last exercise?
     if (!this.workout.length) {
-      this.status = WorkoutStatus.Finished;
-      this.currentTimer = undefined;
-      updater.fire("finished-workout");
+      this.onFinish();
     } else {
       this.status = WorkoutStatus.Resting;
       this.currentTimer = new SecondCountdownTimer(
@@ -137,5 +135,13 @@ export class WorkoutManager {
     if (this.workout.length) {
       this.nextExercise = this.workout[0];
     }
+  }
+
+  private onFinish() {
+    this.status = WorkoutStatus.Finished;
+    this.currentTimer = undefined;
+    const audio = new Audio("/audio/confirmation_002.ogg");
+    audio.play();
+    updater.fire("finished-workout");
   }
 }
