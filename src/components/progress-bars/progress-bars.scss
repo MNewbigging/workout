@@ -26,24 +26,20 @@
       &.intro {
         background-color: $lightBlue;
         animation-duration: 3s;
-        animation-play-state: running;
       }
 
       &.rest {
         background-color: $lightBlue;
         animation-duration: 2s;
-        animation-play-state: running;
       }
 
       &.pause {
         background-color: $red;
-        animation-play-state: paused;
       }
 
       &.exercise {
         background-color: $amber;
         animation-duration: 4s;
-        animation-play-state: running;
       }
     }
   }

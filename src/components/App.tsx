@@ -15,7 +15,7 @@ export function App() {
 
     if (!workoutManager) return;
 
-    if (workoutManager.status === WorkoutStatus.Paused) {
+    if (workoutManager.currentTimer?.paused) {
       workoutManager.resume();
     } else {
       workoutManager.pause();

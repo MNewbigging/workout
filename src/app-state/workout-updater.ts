@@ -2,6 +2,8 @@ export type WorkoutEvent =
   | "started-workout"
   | "second-passed"
   | "timer-started"
+  | "paused-workout"
+  | "resumed-workout"
   | "finished-workout"
   | "return-to-landing-page";
 

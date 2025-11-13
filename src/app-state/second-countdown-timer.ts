@@ -2,6 +2,7 @@ import { updater } from "./workout-updater";
 
 export class SecondCountdownTimer {
   secondsLeft: number;
+  paused = false;
 
   private intervalId = 0;
 
@@ -14,12 +15,20 @@ export class SecondCountdownTimer {
   }
 
   start() {
-    updater.fire("timer-started");
     this.intervalId = setInterval(this.tick, 1000); // calls tick every second
+    updater.fire("timer-started");
   }
 
   resume() {
-    //
+    this.intervalId = setInterval(this.tick, 1000);
+    this.paused = false;
+    updater.fire("resumed-workout");
+  }
+
+  pause() {
+    clearInterval(this.intervalId);
+    this.paused = true;
+    updater.fire("paused-workout");
   }
 
   stop() {

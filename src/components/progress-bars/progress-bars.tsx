@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import { WorkoutManager, WorkoutStatus } from "../../app-state/workout-manager";
 import { useUpdater } from "../hooks/use-updater";
 import "./progress-bars.scss";
@@ -18,7 +19,7 @@ interface ProgressBarsProps {
 }
 
 export function ProgressBars({ workoutManager }: ProgressBarsProps) {
-  useUpdater("timer-started");
+  useUpdater("timer-started", "paused-workout", "resumed-workout");
 
   const barClasses = ["bar"];
 
@@ -30,21 +31,26 @@ export function ProgressBars({ workoutManager }: ProgressBarsProps) {
     case WorkoutStatus.Resting:
       barClasses.push("rest");
       break;
-    case WorkoutStatus.Paused:
-      barClasses.push("pause");
-      break;
     case WorkoutStatus.Exercising:
       barClasses.push("exercise");
       break;
   }
 
+  // Or has the timer been (un)paused?
+  const paused = workoutManager.currentTimer?.paused;
+  console.log("paused: ", paused);
+  const animStyle: CSSProperties = {
+    animationPlayState: paused ? "paused" : "running",
+  };
+  console.log("animStyle: ", animStyle.animationPlayState);
+
   return (
     <div key={workoutManager.status} className="progress-bars">
       <div className={"bar-trough"}>
-        <div className={barClasses.join(" ")}></div>
+        <div className={barClasses.join(" ")} style={animStyle}></div>
       </div>
       <div className={"bar-trough"}>
-        <div className={barClasses.join(" ")}></div>
+        <div className={barClasses.join(" ")} style={animStyle}></div>
       </div>
     </div>
   );

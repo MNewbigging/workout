@@ -6,7 +6,6 @@ export enum WorkoutStatus {
   Intro,
   Exercising,
   Resting,
-  Paused, // Should this be here, or a separate bool? Would avoid prePauseStatus
   Finished,
 }
 
@@ -30,8 +29,6 @@ export class WorkoutManager {
   private readonly exerciseLength = 4; // seconds
   private readonly restLength = 2; // seconds
 
-  private prePauseStatus?: WorkoutStatus;
-
   constructor(private workout: Exercise[]) {}
 
   start() {
@@ -52,14 +49,11 @@ export class WorkoutManager {
   pause() {
     if (this.status === WorkoutStatus.Finished) return;
 
-    this.prePauseStatus = this.status;
-    this.status = WorkoutStatus.Paused;
-    this.currentTimer?.stop();
+    this.currentTimer?.pause();
   }
 
   resume() {
-    if (this.prePauseStatus !== undefined) this.status = this.prePauseStatus;
-    this.currentTimer?.start();
+    this.currentTimer?.resume();
   }
 
   private onTimerEnd = () => {
