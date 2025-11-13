@@ -46,7 +46,11 @@ export class WorkoutManager {
 
     // Screen stuff
     this.wakeLock = await this.getWakeLock();
-    this.toggleFullscreen();
+    document.body.addEventListener(
+      "fullscreenerror",
+      this.onRequestFullscreenError
+    );
+    this.requestFullscreen();
 
     // Begin
     this.currentTimer.start();
@@ -56,12 +60,12 @@ export class WorkoutManager {
     if (this.status === WorkoutStatus.Finished) return;
     this.currentTimer?.pause();
     this.wakeLock?.release();
-    this.toggleFullscreen();
+    this.exitFullscreen();
   }
 
   async resume() {
     this.wakeLock = await this.getWakeLock();
-    this.toggleFullscreen();
+    this.requestFullscreen();
     this.currentTimer?.resume();
   }
 
@@ -70,13 +74,23 @@ export class WorkoutManager {
     return wakeLock;
   }
 
-  private toggleFullscreen() {
+  private requestFullscreen() {
+    document.body.requestFullscreen();
+  }
+
+  private exitFullscreen() {
     if (document.fullscreenElement) {
       document.exitFullscreen();
-    } else {
-      document.body.requestFullscreen();
     }
   }
+
+  private onRequestFullscreenError = () => {
+    // Try again in a second
+    setTimeout(() => {
+      // It might have been paused since
+      if (!this.currentTimer?.paused) this.requestFullscreen();
+    }, 1000);
+  };
 
   private onTimerEnd = () => {
     switch (this.status) {
