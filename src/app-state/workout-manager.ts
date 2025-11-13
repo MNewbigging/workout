@@ -30,7 +30,7 @@ export class WorkoutManager {
   private readonly exerciseLength = 4; // seconds
   private readonly restLength = 2; // seconds
 
-  private wakeLock?: WakeLockSentinel;
+  private wakeLock?: any;
 
   constructor(private workout: Exercise[]) {}
 
@@ -71,9 +71,13 @@ export class WorkoutManager {
   }
 
   private async getWakeLock(): Promise<WakeLockSentinel | undefined> {
-    if (!("wakeLock" in navigator)) return undefined;
-    const wakeLock = await navigator.wakeLock.request("screen");
-    return wakeLock;
+    const anyNav: any = navigator;
+    if ("wakeLock" in navigator) {
+      const wakeLock = await anyNav["wakeLock"].request("screen");
+      return wakeLock;
+    }
+
+    return undefined;
   }
 
   private requestFullscreen() {
