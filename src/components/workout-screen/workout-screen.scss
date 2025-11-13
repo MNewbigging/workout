@@ -12,8 +12,9 @@
   justify-content: center;
   gap: 20px;
   font-size: 10vw;
+  transition: font-size 1s linear forwards;
 
-  .now-or-next {
-    font-size: 8vw;
+  &.shrink {
+    font-size: 5vw;
   }
 }

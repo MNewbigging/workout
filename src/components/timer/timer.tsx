@@ -8,7 +8,7 @@ interface TimerProps {
 }
 
 export function Timer({ workoutManager }: TimerProps) {
-  useUpdater("paused-workout", "resumed-workout");
+  useUpdater("second-passed", "paused-workout", "resumed-workout");
 
   const paused = workoutManager.currentTimer?.paused;
   const animStyle: CSSProperties = {
