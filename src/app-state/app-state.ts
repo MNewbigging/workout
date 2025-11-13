@@ -6,9 +6,15 @@ class AppState {
   workoutManager?: WorkoutManager;
 
   startNewWorkout() {
+    const audio = new Audio("/audio/confirmation_001.ogg");
     const workout = buildWorkout();
     this.workoutManager = new WorkoutManager(workout);
     this.workoutManager.start();
+    try {
+      audio.play();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   finishWorkout() {

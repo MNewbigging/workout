@@ -5,9 +5,12 @@ export class SecondCountdownTimer {
   paused = false;
 
   private intervalId = 0;
+  private tickAudio: HTMLAudioElement;
 
   constructor(private startSeconds: number, private onEnd: () => void) {
     this.secondsLeft = this.startSeconds;
+    this.tickAudio = new Audio("/audio/glass_005.ogg");
+    this.tickAudio.volume = 1;
   }
 
   isFinished() {
@@ -37,6 +40,10 @@ export class SecondCountdownTimer {
 
   private tick = () => {
     this.secondsLeft--;
+
+    if (this.secondsLeft <= 3 && this.secondsLeft >= 0) {
+      this.tickAudio.play();
+    }
 
     if (this.isFinished()) {
       this.stop();

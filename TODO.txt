@@ -4,15 +4,12 @@
 
 Features:
 
-- Full screen 
-- Don't sleep screen
 - Stats? Indexedb saves data, gain exp & levels? 
 
 
 Animations:
 
 - button press
-- seconds timer bounce
 - grey lines/dots background
 - exercise name text bounce? 
 - finish screen text 
