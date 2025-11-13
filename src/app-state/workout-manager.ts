@@ -70,7 +70,8 @@ export class WorkoutManager {
     this.currentTimer?.resume();
   }
 
-  private async getWakeLock(): Promise<WakeLockSentinel> {
+  private async getWakeLock(): Promise<WakeLockSentinel | undefined> {
+    if (!("wakeLock" in navigator)) return undefined;
     const wakeLock = await navigator.wakeLock.request("screen");
     return wakeLock;
   }
