@@ -41,7 +41,9 @@ export function ProgressBars({ workoutManager }: ProgressBarsProps) {
   const animStyle: CSSProperties = {
     animationPlayState: paused ? "paused" : "running",
   };
-  barClasses.push("pause");
+  if (paused) {
+    barClasses.push("pause");
+  }
 
   return (
     <div key={workoutManager.status} className="progress-bars">
