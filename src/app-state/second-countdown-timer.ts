@@ -1,3 +1,4 @@
+import { getUrl } from "./workout-manager";
 import { updater } from "./workout-updater";
 
 export class SecondCountdownTimer {
@@ -11,9 +12,9 @@ export class SecondCountdownTimer {
 
   constructor(private startSeconds: number, private onEnd: () => void) {
     this.secondsLeft = this.startSeconds;
-    this.tickAudio = new Audio("/audio/tick_001.ogg");
-    this.glassAudio = new Audio("/audio/glass_005.ogg");
-    this.stopAudio = new Audio("/audio/glass_004.ogg");
+    this.tickAudio = new Audio(getUrl("/audio/tick_001.ogg"));
+    this.glassAudio = new Audio(getUrl("/audio/glass_005.ogg"));
+    this.stopAudio = new Audio(getUrl("/audio/glass_004.ogg"));
   }
 
   isFinished() {

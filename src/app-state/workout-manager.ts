@@ -145,8 +145,14 @@ export class WorkoutManager {
   private onFinish() {
     this.status = WorkoutStatus.Finished;
     this.currentTimer = undefined;
-    const audio = new Audio("/audio/confirmation_002.ogg");
+    const audio = new Audio(getUrl("/audio/confirmation_002.ogg"));
     audio.play();
     updater.fire("finished-workout");
   }
+}
+
+export function getUrl(path: string) {
+  const pathPrefix = location.hostname === "localhost" ? "" : "/workout";
+  const fullPath = `${pathPrefix}${path}`;
+  return new URL(fullPath, import.meta.url).href;
 }

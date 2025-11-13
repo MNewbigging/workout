@@ -1,12 +1,12 @@
 import { buildWorkout } from "./workout-builder";
-import { WorkoutManager } from "./workout-manager";
+import { getUrl, WorkoutManager } from "./workout-manager";
 import { updater } from "./workout-updater";
 
 class AppState {
   workoutManager?: WorkoutManager;
 
   startNewWorkout() {
-    const audio = new Audio("/audio/confirmation_001.ogg");
+    const audio = new Audio(getUrl("/audio/confirmation_001.ogg"));
     const workout = buildWorkout();
     this.workoutManager = new WorkoutManager(workout);
     this.workoutManager.start();
@@ -19,7 +19,7 @@ class AppState {
 
   finishWorkout() {
     this.workoutManager = undefined;
-    const audio = new Audio("/audio/confirmation_003.ogg");
+    const audio = new Audio(getUrl("/audio/confirmation_003.ogg"));
     audio.play();
     updater.fire("return-to-landing-page");
   }
